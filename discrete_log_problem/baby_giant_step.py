@@ -1,7 +1,6 @@
 import math
 import time
-from modarithmetic import get_mod_inverse
-from divisibility import xgcd
+from modarithmetic import get_mod_inverse, xgcd
 
 def babygiantstep(p,g,h):
     start_time = time.time()
@@ -32,7 +31,7 @@ def babygiantstep(p,g,h):
         # Save babystep {value => index}
         tbl[s] = i
 
-        print('i=',i,'s=', s, 't=', t)
+        # print('i=',i,'s=', s, 't=', t)
 
         # Check if giantstep is in table
         if t in tbl:
@@ -51,13 +50,3 @@ def babygiantstep(p,g,h):
     end_time = time.time()
     print('Elapsed duration: ', int(end_time - start_time), 'seconds')
     return x
-
-if __name__ == "__main__":
-    p = 200003000003
-    g = 3
-    A = 387420489
-    B = 131128838694
-    X = 'HNKFNOJXPQRASSUTRFQGTBKMLRZSJNVHIXYAGVKLLFXHFBGWWJHRJDDXXBJESDYHTFWTNOU'
-    x = babygiantstep(p,g,A)
-    assert( pow(g, x, p) == A )
-    print(x)
