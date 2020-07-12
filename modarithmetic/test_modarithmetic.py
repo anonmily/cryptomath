@@ -9,6 +9,14 @@ class TestModArithmetic(unittest.TestCase):
         x = find_x_for_mod(f, c, m, print_all=True)
         self.assertEqual(x, 2)
         self.assertEqual(f(x) % m, c % m)
+
+    def test_find_x_for_mod_with_string_f(self):
+        f = '5*x'
+        c = 4
+        m = 3
+        x = find_x_for_mod(f, c, m, print_all=True)
+        self.assertEqual(x, 2)
+        self.assertEqual(eval(f) % m, c % m)
     
     def test_get_mod_inverse(self):
         a = 2

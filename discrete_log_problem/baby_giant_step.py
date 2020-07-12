@@ -25,7 +25,6 @@ def babygiantstep(p,g,h):
 
     x = None
 
-    # Search for an equivalence in the table. Giant step.
     for i in range(N):
         
         # Save babystep {value => index}
@@ -45,8 +44,8 @@ def babygiantstep(p,g,h):
         s = s*g % p
         t = (t * g_inv_n) % p
 
-    # Return the discovered x
-    
     end_time = time.time()
     print('Elapsed duration: ', int(end_time - start_time), 'seconds')
+
+    # Return the discovered x
     return x

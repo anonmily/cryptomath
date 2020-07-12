@@ -1,4 +1,5 @@
 from .divisibility import xgcd
+import inspect
 
 def find_x_for_mod(f, c, m, check_neg=False, print_all=False):
     '''
@@ -16,10 +17,18 @@ def find_x_for_mod(f, c, m, check_neg=False, print_all=False):
     c = c % m
     solution = None
 
+    if callable(f):
+        f_str = inspect.getsource(f)
+    else:
+        f_str = f 
+        f = lambda x: eval(f_str)
+
     if print_all:
+        print('-----------------------')
         print('{:^10s} {:^10s}'.format('x', 'f(x) mod m') )
         print('-----------------------')
 
+    # Brute force
     while not solution:
         x = x + 1
 
