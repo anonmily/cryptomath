@@ -2,7 +2,7 @@ import math
 
 from modarithmetic import get_mod_inverse
 
-def chinese_remainder_theorem(sys_of_congruences):
+def chinese_remainder_theorem(sys_of_congruences, verbose=False):
     '''
     Chinese Remainder Theorem for 2 congruences.
     TODO: expand for more than 2 congruences
@@ -11,26 +11,38 @@ def chinese_remainder_theorem(sys_of_congruences):
     sys_of_congruences = [(3,7), (9,13)]
     chinese_remainder_theorem(sys_of_congruences)
     '''
-    c1, c2 = sys_of_congruences
-    c1_r = c1[0]
-    c1_mod = c1[1]
-
-    c2_r = c2[0]
-    c2_mod = c2[1]
+    x1, x2 = sys_of_congruences
+    c1, m1 = x1
+    c2, m2 = x2
 
     # the moduli must have gcd(m1,m2) = 1
-    are_mods_rel_prime = math.gcd(c1_mod, c2_mod) == 1
-    assert( are_mods_rel_prime )
+    m1_m2_gcd = math.gcd(m1, m2) 
+    if m1_m2_gcd != 1:
+        raise ValueError('gcd(%s,%s)=%s. gcd=1 is required for a unique solution to the Chinese Remainder Theorem.' % (m1,m2, m1_m2_gcd))
     
-    r_diff = c2_r - c1_r
-    inv_c1_mod = get_mod_inverse(a=c1_mod, m=c2_mod)
-    k = r_diff*inv_c1_mod
-    print('r_diff=', r_diff, 'inv_c1_mod=', inv_c1_mod, 'k=',k)
+    c_diff = c2 - c1
+    m1_inv = get_mod_inverse(a=m1, m=m2)
+    k = (c_diff * m1_inv) % m2
+    x = c1 + m1*k
+    m1_m2 = m1*m2
+    
+    general_x = lambda t: x + m1_m2*t
 
-    x = c1_r + c1_mod*k
-    print('x=', x)
-
-    general_x = lambda t: x + c1_mod*c2_mod*t
-    print(f'general x = {x} + {c1_mod*c2_mod}t')
+    # Print results
+    if print_all:
+        print('---------------------')
+        print('Given:')
+        print(f'x={c1} (mod {m1})')
+        print(f'x={c2} (mod {c2})')
+        print('---------------------')
+        print(f'x = {c1} + {m1}*k == {c2} (mod {m2})')
+        print(f'{m1}k === {c_diff} (mod {m2})')
+        print(f'm1_inv = {m1_inv}')
+        print(f'k === ({m1_inv})({c_diff}) (mod {m2})')
+        print(f'k === {k}')
+        print('\nThen, ')
+        print(f'x = c1 + m1*k = {c1} + ({m1})({k})')
+        print(f'{x=}')
+        print(f'general x = {x} + {m1_m2}t')
     
     return general_x
