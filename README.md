@@ -36,8 +36,11 @@ a_inv = get_mod_inverse(a=2, m=7)
 
 ## Chinese Remainder Problem
 * Solves a system of congruences for the general solution of x.
-* Returns a lambda function for the general solution (e.g. lambda t: 87 + 91*t)
-* Currently works only for a system of two congruences.
+* Returns the final c and final m for the generalized solution x as a tuple (c, m)
+
+![x=c+mk](https://latex.codecogs.com/svg.latex?x=c%20+%20mk)
+
+* Should work for any number of equations now.
 
 ![x=c (mod m)](https://latex.codecogs.com/svg.latex?x%20\equiv%20c%20\mod%20m)
 
@@ -51,9 +54,18 @@ For example:
 from modarithmetic import chinese_remainder_theorem
 
 # Represent the equations in pairs of (c,m)
-sys_of_congruences = [(3,7), (9,13)]
+c, m = chinese_remainder_theorem([ 
+    (3,7), 
+    (9,13) 
+])
+general_x = lambda k: c + m*k
 
-chinese_remainder_theorem(sys_of_congruences)
+# 4 equations
+c, m = chinese_remainder_theorem([
+    (1,3), (1,4), 
+    (1,5), (0,7)
+])
+general_x = lambda k: c + m*k
 ```
 
 # Discrete Log Problem

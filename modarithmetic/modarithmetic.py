@@ -59,3 +59,6 @@ def get_mod_inverse(a, m):
     '''
     x = xgcd(a, m)[1]
     return x % m
+
+def get_discrete_root(c, m):
+    pass

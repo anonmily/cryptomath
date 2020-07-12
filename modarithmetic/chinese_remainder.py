@@ -2,7 +2,7 @@ import math
 
 from modarithmetic import get_mod_inverse
 
-def chinese_remainder_theorem(sys_of_congruences, verbose=False):
+def chinese_remainder_theorem_2(sys_of_congruences, verbose=False):
     '''
     Chinese Remainder Theorem for 2 congruences.
     TODO: expand for more than 2 congruences
@@ -11,9 +11,13 @@ def chinese_remainder_theorem(sys_of_congruences, verbose=False):
     sys_of_congruences = [(3,7), (9,13)]
     chinese_remainder_theorem(sys_of_congruences)
     '''
+    if len(sys_of_congruences) < 2:
+        raise ValueError('Less than 2 congruence equations given.')
+
     x1, x2 = sys_of_congruences
     c1, m1 = x1
     c2, m2 = x2
+    print(sys_of_congruences)
 
     # the moduli must have gcd(m1,m2) = 1
     m1_m2_gcd = math.gcd(m1, m2) 
@@ -25,11 +29,9 @@ def chinese_remainder_theorem(sys_of_congruences, verbose=False):
     k = (c_diff * m1_inv) % m2
     x = c1 + m1*k
     m1_m2 = m1*m2
-    
-    general_x = lambda t: x + m1_m2*t
 
     # Print results
-    if print_all:
+    if verbose:
         print('---------------------')
         print('Given:')
         print(f'x={c1} (mod {m1})')
@@ -44,5 +46,22 @@ def chinese_remainder_theorem(sys_of_congruences, verbose=False):
         print(f'x = c1 + m1*k = {c1} + ({m1})({k})')
         print(f'{x=}')
         print(f'general x = {x} + {m1_m2}t')
-    
-    return general_x
+     
+    #general_x = lambda k: x + m1_m2*k
+    return (x, m1_m2)
+
+def chinese_remainder_theorem(sys_of_congruences, verbose=False):
+    '''
+    Chinese Remainder Theorem: More than 2 congruences
+    '''
+    n = len(sys_of_congruences)
+    if n <= 2:
+        return chinese_remainder_theorem_2(sys_of_congruences, verbose=verbose)
+    else:
+        i = 0
+        c1, m1 = sys_of_congruences[i]
+        while i < n - 1:
+            c2, m2 = sys_of_congruences[i+1]
+            c1, m1 = chinese_remainder_theorem_2([ (c1, m1), (c2, m2) ])
+            i = i + 1
+        return (c1, m1)
