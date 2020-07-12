@@ -44,7 +44,7 @@ def chinese_remainder_theorem_2(sys_of_congruences, verbose=False):
         print(f'k === {k}')
         print('\nThen, ')
         print(f'x = c1 + m1*k = {c1} + ({m1})({k})')
-        print(f'{x=}')
+        print(f'x={x}')
         print(f'general x = {x} + {m1_m2}t')
      
     #general_x = lambda k: x + m1_m2*k

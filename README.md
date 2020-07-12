@@ -6,6 +6,49 @@ Feel free to provide suggestions or improvements.
 
 This code uses Python 3.8.2.
 
+# Running Sage Locally
+If you don't have sage installed locally already, you can also run it via [Docker](https://www.docker.com/get-started). This repository includes a [Docker Compose](https://docs.docker.com/compose/gettingstarted/) file that can be used and adapted.
+
+```
+version: '3'
+services:
+  sage:
+    image: sagemath/sagemath:latest
+    ports:
+     - "8888:8888"
+    volumes:
+      - .:/src
+    working_dir: /src
+```
+
+To start up a container bash terminal, just run
+```
+docker-compose run sage bash
+```
+This will open a bash terminal in the container with this current directory mounted to /src, which is the working directory.
+
+Then, you can run `sage --python` followed by your filename to run a python file with sage.
+```python
+# experiment.py
+# sage libraries can now be imported and used
+
+from sage.all import *
+print(factor(1000))
+```
+
+```bash
+sage --python experiment.py
+```
+
+```bash
+sage@56b9c372c099:/src$ ls
+README.md  discrete_log_problem  docker-compose.yml  experiment.py  matrices.py  modarithmetic  utils.py
+
+sage@56b9c372c099:/src$ sage --python experiment.py
+2^3 * 5^3
+```
+
+
 # Modular Arithmetic
 
 ## Extended Euclidean Algorithm:
@@ -26,6 +69,11 @@ f = lambda x: 5*x
 
 x = find_x_for_mod(f, c=4, m=3, print_all=True)
 ```
+## Find discrete root for x^2 congruent to c mod p
+If  ![p-mod-4-congruent-3](https://latex.codecogs.com/svg.latex?p%20\equiv%203%20\mod%204)   then the discrete root is:  
+![discrete-root-for-p-mod-4-congruent-3](https://latex.codecogs.com/svg.latex?x=\pm%20c^{\frac{p+1}{4}}\mod%20p)
+
+Otherwise, use the brute-force find_x_for_mod to find the discrete root.
 
 ## Get modular inverse
 ![equation](https://latex.codecogs.com/svg.latex?a%20\bullet%20a^{-1}%20%20\equiv%201%20(mod%20m))

@@ -2,7 +2,7 @@ import math
 import time
 from modarithmetic import get_mod_inverse, xgcd
 
-def babygiantstep(p,g,h):
+def babygiantstep(p,g,h, verbose=False, generate_all=False):
     start_time = time.time()
 
     # get the order m = p - 1
@@ -30,7 +30,7 @@ def babygiantstep(p,g,h):
         # Save babystep {value => index}
         tbl[s] = i
 
-        # print('i=',i,'s=', s, 't=', t)
+        if verbose: print(f'i={i}, s={s}, t={t}')
 
         # Check if giantstep is in table
         if t in tbl:
@@ -38,7 +38,7 @@ def babygiantstep(p,g,h):
             print('found t=', t, 'i=', i, 'j=', j)
             x = i * N + j
             print('x=',x)
-            break
+            if not generate_all: break
         
         # Increment values
         s = s*g % p

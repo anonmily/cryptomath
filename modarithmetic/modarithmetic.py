@@ -1,7 +1,7 @@
 from .divisibility import xgcd
 import inspect
 
-def find_x_for_mod(f, c, m, check_neg=False, print_all=False):
+def find_x_for_mod(f, c, m, check_neg=False, verbose=False):
     '''
     Given a lambda eq (e.g. lambda x: 6*x), find x such
     that it is congruent to c modulo m.
@@ -9,9 +9,9 @@ def find_x_for_mod(f, c, m, check_neg=False, print_all=False):
     When print_all=True, all mod values will be printed
     to console.
 
-    Example: Find x such that:  6x + 50 = 9 (mod 26)
-    find_mod(lambda x: 6x+50, c=9, mod=26)
-    find_mod(lambda x: 6x+50, c=9, mod=26, print_all=True)
+    Example: f(x) = 5x === 4 (mod 3)
+    f = lambda x: 5*x 
+    x = find_x_for_mod(f, c=4, m=3, print_all=True)
     '''
     x = 0
     c = c % m
@@ -23,7 +23,7 @@ def find_x_for_mod(f, c, m, check_neg=False, print_all=False):
         f_str = f 
         f = lambda x: eval(f_str)
 
-    if print_all:
+    if verbose:
         print('-----------------------')
         print('{:^10s} {:^10s}'.format('x', 'f(x) mod m') )
         print('-----------------------')
@@ -36,7 +36,7 @@ def find_x_for_mod(f, c, m, check_neg=False, print_all=False):
         y = f(x)
         y = y % m
         if y == c: solution = x
-        if print_all: print('{:^10n} {:^10n}'.format(x,y) )
+        if verbose: print('{:^10n} {:^10n}'.format(x,y) )
 
         # Check negative x
         if check_neg:
@@ -44,9 +44,9 @@ def find_x_for_mod(f, c, m, check_neg=False, print_all=False):
             y2 = f(x_neg)
             y2 = y2 % m
             if y2 == c: solution = x_neg
-            if print_all: print('{:^10n} {:^10n}'.format(x_neg,y2) )
+            if verbose: print('{:^10n} {:^10n}'.format(x_neg,y2) )
 
-    if print_all: print('-----------------------')
+    if verbose: print('-----------------------')
 
     print('x = ' + str(solution))
 
@@ -60,5 +60,12 @@ def get_mod_inverse(a, m):
     x = xgcd(a, m)[1]
     return x % m
 
-def get_discrete_root(c, m):
-    pass
+def get_discrete_root(a, p, verbose=False):
+    if p % 4 == 3:
+        n = int((p+1)/4)
+        b = pow(a, n, p)
+        print(f'calc discrete root p % 4 === 4: n={n} b={b}')
+    else:
+        b = find_x_for_mod(lambda x: x**2, c=a, m=p, verbose=True)
+        print(f'trial and error: b={b}')
+    return (b, b*-1)
