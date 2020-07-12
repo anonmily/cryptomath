@@ -13,20 +13,25 @@ This code uses Python 3.8.2.
 from modarithmetic import xgcd
 # Returns a tuple: (38, 32, -45)
 # d=38, x=32, y=-45
-xgcd(4864, 3458) 
+d, x, y = xgcd(4864, 3458) 
 ```
 
 ## Find a x such that f(x) is congruent to c mod m
+![f(x) = c mod m](https://latex.codecogs.com/svg.latex?f(x)\equiv%20c%20\mod%20m)
 ```python
 from modarithmetic import find_x_for_mod
-find_x_for_mod(lambda x: 5*x, c=4, m=3, print_all=True)
+
+# f(x) = 5x
+f = lambda x: 5*x 
+
+x = find_x_for_mod(f, c=4, m=3, print_all=True)
 ```
 
 ## Get modular inverse
 ![equation](https://latex.codecogs.com/svg.latex?a%20\bullet%20a^{-1}%20%20\equiv%201%20(mod%20m))
 ```python
 from modarithmetic import get_mod_inverse
-get_mod_inverse(a=2, m=7)
+a_inv = get_mod_inverse(a=2, m=7)
 ```
 
 ## Chinese Remainder Problem
