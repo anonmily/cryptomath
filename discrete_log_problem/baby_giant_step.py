@@ -7,15 +7,12 @@ def babygiantstep(p,g,h, verbose=False, generate_all=False):
 
     # get the order m = p - 1
     N = int(math.ceil(math.sqrt(p - 1)))
-    print('n=', N)
     
     # get mod inverse of g
     g_inv = get_mod_inverse(g, p)
-    print('g_inv=', g_inv)
 
     # Compute g^−n
     g_inv_n = pow(g_inv, N, p)
-    print('g_inv_n=', g_inv_n)
 
     s = 1
     t = h
@@ -24,6 +21,9 @@ def babygiantstep(p,g,h, verbose=False, generate_all=False):
     tbl = {}
 
     x = None
+
+    if verbose:
+        print('n=', N, 'g_inv=', g_inv,'g_inv_n=', g_inv_n)
 
     for i in range(N):
         
@@ -35,9 +35,8 @@ def babygiantstep(p,g,h, verbose=False, generate_all=False):
         # Check if giantstep is in table
         if t in tbl:
             j = tbl[t]
-            print('found t=', t, 'i=', i, 'j=', j)
+            if verbose: print('found t=', t, 'i=', i, 'j=', j)
             x = i * N + j
-            print('x=',x)
             if not generate_all: break
         
         # Increment values
@@ -45,7 +44,10 @@ def babygiantstep(p,g,h, verbose=False, generate_all=False):
         t = (t * g_inv_n) % p
 
     end_time = time.time()
-    print('Elapsed duration: ', int(end_time - start_time), 'seconds')
+    if verbose: print('Elapsed duration: ', int(end_time - start_time), 'seconds')
 
     # Return the discovered x
-    return x
+    if x:
+        return x
+    else:
+        raise Exception('No discrete log found for g=%s, h=%s, p=%s' % (g, h, p))
