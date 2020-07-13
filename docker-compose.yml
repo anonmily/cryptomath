@@ -2,8 +2,6 @@ version: '3'
 services:
   sage:
     image: sagemath/sagemath:latest
-    ports:
-     - "8888:8888"
     volumes:
       - .:/src
     working_dir: /src

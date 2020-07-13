@@ -9,25 +9,32 @@ This code uses Python 3.8.2.
 # Running Sage Locally
 If you don't have sage installed locally already, you can also run it via [Docker](https://www.docker.com/get-started). This repository includes a [Docker Compose](https://docs.docker.com/compose/gettingstarted/) file that can be used and adapted.
 
+### 1. Download and install [Docker](https://www.docker.com/get-started): 
+
+### 2. Download and install Docker Compose](https://docs.docker.com/compose/gettingstarted/)
+
+### 3. Download and extract the code from the repository
+ZIP Archive: https://github.com/anonmily/cryptomath/archive/master.zip
+
+### 4. (Windows only) Add the code directory the the mountable folders in your Docker Settings
+If you're on Windows, for the volume linking/mounting to work (so you can access local files in your containers), you might need to add the directory with the extracted code to mountable folders list in your Docker Desktop settings (if you are running Windows). The setting is available in Settings --> Resources --> File Sharing.
+### 5. Go to the directory with the code and run: `docker-compose run sage bash`. 
+```
+docker-compose run sage bash
+```
+This will start up a container and give you a bash terminal in the container with this current directory mounted to /src, which is the working directory.
 ```
 version: '3'
 services:
   sage:
     image: sagemath/sagemath:latest
-    ports:
-     - "8888:8888"
     volumes:
       - .:/src
     working_dir: /src
 ```
+### 6. In the terminal you can then run a sage-wrapped python: `sage --python`
 
-To start up a container bash terminal, just run
-```
-docker-compose run sage bash
-```
-This will open a bash terminal in the container with this current directory mounted to /src, which is the working directory.
-
-Then, you can run `sage --python` followed by your filename to run a python file with sage.
+For example, you can run `sage --python` followed by your filename to run a python file with sage.
 ```python
 # experiment.py
 # sage libraries can now be imported and used
