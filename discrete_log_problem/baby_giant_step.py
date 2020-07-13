@@ -10,7 +10,7 @@ def babygiantstep(p,g,h, use_element_order=False, verbose=False, generate_all=Fa
         N = p - 1
     else:
         N = int(Mod(g,p).multiplicative_order())
-     if verbose: print('N=',N)
+    if verbose: print('N=',N)
 
     n = int(math.ceil(math.sqrt(N)))
 
