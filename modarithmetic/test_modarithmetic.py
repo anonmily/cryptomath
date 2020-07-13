@@ -1,5 +1,7 @@
 import unittest
+import numpy as np
 from .modarithmetic import find_x_for_mod, get_mod_inverse, xgcd
+from .matrices import get_matrix_inverse
 from .chinese_remainder import chinese_remainder_theorem
 
 class TestFindXForMod(unittest.TestCase):
@@ -40,6 +42,12 @@ class TestExtEuclidAlgorithm(unittest.TestCase):
         b = 3458
         d, x, y = xgcd(a, b)
         self.assertEqual(a*x + b*y, d)
+
+class TestMatrices(unittest.TestCase):
+    def test_get_matrix_inverse_mod(self):
+        a = [[1,3],[25,0]]
+        a_inv = get_matrix_inverse(a, m=26)
+        np.testing.assert_allclose(a_inv, [[0, 25],[9,9]])
 
 class TestChineseRemainderTheorem(unittest.TestCase):
     def test_chin_remainder_thm_2_eqs(self):

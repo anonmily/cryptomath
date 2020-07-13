@@ -103,6 +103,17 @@ from modarithmetic import get_mod_inverse
 a_inv = get_mod_inverse(a=2, m=7)
 ```
 
+## Get a modular inverse of a matrix
+```python
+from moadarithmetic import get_matrix_inverse
+
+# Find the mod of a matrix A mod 26
+a = [[1,3],[25,0]]
+
+# Will return [[0, 25],[9,9]]
+a_inv = get_matrix_inverse(a, m=26)
+```
+
 ## Chinese Remainder Problem
 * Solves a system of congruences for the general solution of x.
 * Returns the final c and final m for the generalized solution x as a tuple (c, m)

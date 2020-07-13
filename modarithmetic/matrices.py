@@ -1,5 +1,5 @@
 import numpy as np
-from modarithmetic import find_mod_inverse
+from .modarithmetic import get_mod_inverse
 
 def get_determinant(a):
     det = np.linalg.det(a)
@@ -8,22 +8,22 @@ def get_determinant(a):
 def get_matrix_cofactor(matrix):
     return np.linalg.inv(matrix) * np.linalg.det(matrix)
 
-def get_matrix_inverse(a, mod=False):
+def get_matrix_inverse(a, m=False):
     '''
     Find the matrix inverse (optionally modular):
 
-    get_matrix_inverse(a, mod=26)
+    get_matrix_inverse(a, m=26)
     '''
     a = np.array(a)
     
     det = get_determinant(a)
-    det_inv = find_mod_inverse(det, m=mod)[0] if mod else 1/det
+    det_inv = get_mod_inverse(det, m=m) if m else 1/det
 
     adj = get_matrix_cofactor(a)
-    if mod: adj = adj % mod
+    if m: adj = adj % m
 
     matrix_inverse = det_inv*adj
 
-    if mod: 
-        matrix_inverse = matrix_inverse % mod
+    if m: 
+        matrix_inverse = matrix_inverse % m
     return matrix_inverse
