@@ -29,7 +29,7 @@ def find_x_for_mod(f, c, m, check_neg=False, verbose=False):
         print('-----------------------')
 
     # Brute force
-    while not solution:
+    while not solution and x <= m:
         x = x + 1
 
         # Check positive x
@@ -49,6 +49,8 @@ def find_x_for_mod(f, c, m, check_neg=False, verbose=False):
     if verbose: print('-----------------------')
 
     print('x = ' + str(solution))
+    if not solution: 
+        raise Exception(f'No solution found for: {f_str} === {c}, (mod {m})')
 
     return solution
 
