@@ -1,5 +1,5 @@
-from .divisibility import xgcd
 import inspect
+from .divisibility import xgcd
 
 def find_x_for_mod(f, c, m, check_neg=False, verbose=False):
     '''
@@ -59,13 +59,3 @@ def get_mod_inverse(a, m):
     '''
     x = xgcd(a, m)[1]
     return x % m
-
-def get_discrete_root(a, p, verbose=False):
-    if p % 4 == 3:
-        n = int((p+1)/4)
-        b = pow(a, n, p)
-        print(f'calc discrete root p % 4 === 4: n={n} b={b}')
-    else:
-        b = find_x_for_mod(lambda x: x**2, c=a, m=p, verbose=True)
-        print(f'trial and error: b={b}')
-    return (b, b*-1)

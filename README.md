@@ -74,6 +74,27 @@ If  ![p-mod-4-congruent-3](https://latex.codecogs.com/svg.latex?p%20\equiv%203%2
 ![discrete-root-for-p-mod-4-congruent-3](https://latex.codecogs.com/svg.latex?x=\pm%20c^{\frac{p+1}{4}}\mod%20p)
 
 Otherwise, use the brute-force find_x_for_mod to find the discrete root.
+```python
+from modarithmetic import get_discrete_root
+
+x1, x2 = get_discrete_root(2201, 4127)
+```
+
+## Find the composite discrete root for x^2 congruent to c mod m
+If the moduli m is composite and can be reduced to prime power modules...
+1. Prime factorization of m:  
+
+![factor-m](https://latex.codecogs.com/svg.latex?m=p_1^{a_1}%20\cdots%20p_k^{a_k})
+
+2. Compute the square root modulo each of the the prime
+3. Combine using the Chinese Remainder Theorem
+
+```python
+from modarithmetic import get_composite_discrete_root
+
+# Will return [144, 201, 236, 293]
+roots = get_composite_discrete_root(197, 437)
+```
 
 ## Get modular inverse
 ![equation](https://latex.codecogs.com/svg.latex?a%20\bullet%20a^{-1}%20%20\equiv%201%20(mod%20m))

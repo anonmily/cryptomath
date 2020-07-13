@@ -1,5 +1,5 @@
 import unittest
-from .modarithmetic import find_x_for_mod, get_mod_inverse, xgcd, get_discrete_root
+from .modarithmetic import find_x_for_mod, get_mod_inverse, xgcd
 from .chinese_remainder import chinese_remainder_theorem
 
 class TestFindXForMod(unittest.TestCase):
@@ -7,7 +7,15 @@ class TestFindXForMod(unittest.TestCase):
         f = lambda x: 5*x
         c = 4
         m = 3
-        x = find_x_for_mod(f, c, m, print_all=True)
+        x = find_x_for_mod(f, c, m, verbose=True)
+        self.assertEqual(x, 2)
+        self.assertEqual(f(x) % m, c % m)
+
+    def test_find_x_for_mod_nonverbose(self):
+        f = lambda x: 5*x
+        c = 4
+        m = 3
+        x = find_x_for_mod(f, c, m, verbose=False)
         self.assertEqual(x, 2)
         self.assertEqual(f(x) % m, c % m)
 
@@ -15,7 +23,7 @@ class TestFindXForMod(unittest.TestCase):
         f = '5*x'
         c = 4
         m = 3
-        x = find_x_for_mod(f, c, m, print_all=True)
+        x = find_x_for_mod(f, c, m, verbose=True)
         self.assertEqual(x, 2)
         self.assertEqual(eval(f) % m, c % m)
 
@@ -50,9 +58,3 @@ class TestChineseRemainderTheorem(unittest.TestCase):
         ])
         self.assertEqual(c, 301)
         self.assertEqual(m, 3*4*5*7)
-
-class TestGetDiscreteRoot(unittest.TestCase):
-    def test_get_discrete_root(self):
-        x1, x2 = get_discrete_root(2201, 4127)
-        self.assertEqual(x1, 3718)
-        self.assertEqual(x2, -3718)

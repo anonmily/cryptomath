@@ -17,7 +17,7 @@ def chinese_remainder_theorem_2(sys_of_congruences, verbose=False):
     x1, x2 = sys_of_congruences
     c1, m1 = x1
     c2, m2 = x2
-    print(sys_of_congruences)
+    if verbose: print(sys_of_congruences)
 
     # the moduli must have gcd(m1,m2) = 1
     m1_m2_gcd = math.gcd(m1, m2) 
