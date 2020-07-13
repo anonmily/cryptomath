@@ -150,7 +150,7 @@ assert( pow(g, x, p) == A )
 ```
 ## Pohlig Hellman Algorithm
 * Currently only applicable to Fp
-* Reduces the discrete log problem (DLP) of elements of arbitary order and reduces is to the DLP of prime power order.
+* Reduces the discrete log problem (DLP) of elements of arbitary order and reduces it to the DLP of prime power order.
 
 For example:
 ![g=15,h=131,p=337](https://latex.codecogs.com/svg.latex?15^{x}%20\equiv%20131%20\mod%20337)
