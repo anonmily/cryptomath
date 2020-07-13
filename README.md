@@ -67,7 +67,7 @@ from modarithmetic import find_x_for_mod
 # f(x) = 5x
 f = lambda x: 5*x 
 
-x = find_x_for_mod(f, c=4, m=3, print_all=True)
+x = find_x_for_mod(f, c=4, m=3)
 ```
 ## Find discrete root for x^2 congruent to c mod p
 If  ![p-mod-4-congruent-3](https://latex.codecogs.com/svg.latex?p%20\equiv%203%20\mod%204)   then the discrete root is:  
