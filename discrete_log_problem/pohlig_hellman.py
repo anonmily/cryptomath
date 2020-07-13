@@ -24,7 +24,7 @@ def pohlig_hellman(g,h,p):
         q, e = int(q), int(e)
 
         pi = int(pow(q,e))
-        exp = int(n/pi)
+        exp = int( n // pi )
         gi = pow(g, exp)
         hi = pow(h, exp)  
         print('--------------------')

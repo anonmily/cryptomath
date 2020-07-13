@@ -5,7 +5,7 @@ def xgcd(a,b,):
     # From: http://anh.cs.luc.edu/331/notes/xgcd.pdf
     prevx, x = 1, 0; prevy, y = 0, 1
     while b:
-        q = math.floor(a/b)
+        q = math.floor( a // b)
         x, prevx = prevx - q*x, x
         y, prevy = prevy - q*y, y
         a, b = b, a % b
